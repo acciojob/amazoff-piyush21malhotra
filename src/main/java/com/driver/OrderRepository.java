@@ -62,22 +62,22 @@ public class OrderRepository {
         return partnerHashMap.get(partnerId).getNumberOfOrders();
     }
 
-    public List<Order> getOrdersByPartnerId(String partnerId) {
-        List<Order> listOfOrder = new ArrayList<>();
+    public List<String> getOrdersByPartnerId(String partnerId) {
+        List<String> listOfOrder = new ArrayList<>();
 
         List<String> listOfOrderId = orderPartnerPair.get(partnerId);
 
         for(String orderId : listOfOrderId) {
-            listOfOrder.add(orderHashmap.get(orderId));
+            listOfOrder.add(orderHashmap.get(orderId).toString());
         }
         return listOfOrder;
     }
 
-    public List<Order> getAllOrders() {
-        List<Order> listOfOrder = new ArrayList<>();
+    public List<String> getAllOrders() {
+        List<String> listOfOrder = new ArrayList<>();
 
         for(String orderId : orderHashmap.keySet()) {
-            listOfOrder.add(orderHashmap.get(orderId));
+            listOfOrder.add(orderHashmap.get(orderId).toString());
         }
         return listOfOrder;
     }
