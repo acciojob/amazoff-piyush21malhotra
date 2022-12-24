@@ -12,7 +12,7 @@ public class OrderService {
     OrderRepository orderRepository;
 
     public void addOrder(Order order) {
-        orderRepository.addOrder(order);
+        this.orderRepository.addOrder(order);
     }
 
     public void addPartner(String partnerId) {
@@ -60,7 +60,7 @@ public class OrderService {
     }
 
     public void deleteOrderById(String orderId) {
-        orderRepository.deletePartnerById(orderId);
+        orderRepository.deleteOrderById(orderId);
     }
 
 }

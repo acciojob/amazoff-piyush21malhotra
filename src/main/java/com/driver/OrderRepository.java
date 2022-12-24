@@ -25,11 +25,10 @@ public class OrderRepository {
     }
 
     public void addOrder(Order order) {
-
-        order.setId(id);
-        this.id = Integer.toString(Integer.parseInt(id) + 1);
-        orderHashmap.put(id, order);
-        unassignedOrderMap.add(order.getId());
+        order.setId(this.id);
+        this.id = Integer.toString(Integer.parseInt(this.id) + 1);
+        this.orderHashmap.put(order.getId(), order);
+        this.unassignedOrderMap.add(order.getId());
     }
 
     public void addPartner(String partnerId) {
@@ -65,10 +64,12 @@ public class OrderRepository {
     public List<String> getOrdersByPartnerId(String partnerId) {
         List<String> listOfOrder = new ArrayList<>();
 
-        List<String> listOfOrderId = orderPartnerPair.get(partnerId);
+        if(orderPartnerPair.containsKey(partnerId)) {
+            List<String> listOfOrderId = orderPartnerPair.get(partnerId);
 
-        for(String orderId : listOfOrderId) {
-            listOfOrder.add(orderHashmap.get(orderId).toString());
+            for (String orderId : listOfOrderId) {
+                listOfOrder.add(orderHashmap.get(orderId).toString());
+            }
         }
         return listOfOrder;
     }
@@ -112,12 +113,14 @@ public class OrderRepository {
     }
 
     public void deletePartnerById(String partnerId) {
-        List<String> listOfOrders = orderPartnerPair.get(partnerId);
+        if(orderPartnerPair.containsKey(partnerId)) {
+            List<String> listOfOrders = orderPartnerPair.get(partnerId);
 
-        for(String orderId : listOfOrders) {
-            unassignedOrderMap.add(orderHashmap.get(orderId).getId());
+            for (String orderId : listOfOrders) {
+                unassignedOrderMap.add(orderHashmap.get(orderId).getId());
+            }
+            orderPartnerPair.remove(partnerId);
         }
-        orderPartnerPair.remove(partnerId);
         partnerHashMap.remove(partnerId);
     }
 
